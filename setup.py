@@ -41,12 +41,14 @@ for package in packages:
         continue
     filtered_packages.append(package)
 
+requirements = ["requests", "pyjnius", "future"]
+
 setup(
-    name="PySiddhi",
-    version="5.1.0",
+    name="PySiddhi-ext",
+    version="5.1.0.1",
     packages=filtered_packages,
     python_requires='>=2.7, >=3.6',
-    install_requires=["requests","pyjnius", "future", "enum34 ; python_version<'4'"],
+    install_requires=requirements,
     package_data={
         "PySiddhi": ["../__PySiddhiProxy/target/lib/*.jar",
                       "../__PySiddhiProxy/target/*.jar",
@@ -60,7 +62,8 @@ setup(
     description="Python wrapper for `Siddhi 5.x.x`.",
     license="Apache2",
     cmdclass={
-        'install': PostInstallCommand,
+        # TODO disabled for now, to avoid build issues under Alpine
+        # 'install': PostInstallCommand,
     },
     url="https://github.com/siddhi-io/PySiddhi",
     classifiers=[
