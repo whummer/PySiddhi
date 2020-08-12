@@ -25,11 +25,12 @@ class PostInstallCommand(install):
 
     def run(self):
         # Compile JAVA Code here
-        if os.name == "nt":
-            check_call("mvn clean install".split(), cwd="__PySiddhiProxy",
-                       shell=True)  # shell=True is necessary for windows
-        else:
-            check_call("mvn clean install".split(), cwd="__PySiddhiProxy")  # shell=True should be skipped for linux
+        # TODO disabled for now, to avoid build issues under Alpine
+        # if os.name == "nt":
+        #     check_call("mvn clean install".split(), cwd="__PySiddhiProxy",
+        #                shell=True)  # shell=True is necessary for windows
+        # else:
+        #     check_call("mvn clean install".split(), cwd="__PySiddhiProxy")  # shell=True should be skipped for linux
 
         install.run(self)
 
@@ -45,7 +46,7 @@ requirements = ["requests", "pyjnius", "future"]
 
 setup(
     name="PySiddhi-ext",
-    version="5.1.0.1",
+    version="5.1.0.4",
     packages=filtered_packages,
     python_requires='>=2.7, >=3.6',
     install_requires=requirements,
@@ -62,8 +63,7 @@ setup(
     description="Python wrapper for `Siddhi 5.x.x`.",
     license="Apache2",
     cmdclass={
-        # TODO disabled for now, to avoid build issues under Alpine
-        # 'install': PostInstallCommand,
+        'install': PostInstallCommand,
     },
     url="https://github.com/siddhi-io/PySiddhi",
     classifiers=[

@@ -4,8 +4,8 @@ __pycache__/
 *$py.class
 
 # C extensions
-*.so
-*.dylib
+__PySiddhiProxy/threadfix_c_code/*.so
+__PySiddhiProxy/threadfix_c_code/*.dylib
 
 # Distribution / packaging
 .Python

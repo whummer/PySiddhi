@@ -17,12 +17,12 @@
 echo "Compiling C++ Code used for fixing threading issue"
 echo "Invoking G++ Compiler"
 
-if [["$OSTYPE" == "darwin"*]]; then
-    g++ -I "$JAVA_HOME/include" -I "$JAVA_HOME/include/darwin" -I "$PYTHONHOME" -shared -flat_namespace -undefined suppress -dynamiclib -o libio_siddhi_pythonapi_threadfix_pythreadfix.so io_siddhi_pythonapi_threadfix_PyThreadFix.c
-elif [["$OSTYPE" == "linux-gnu"]]; then
+if [[ "$OSTYPE" = "darwin"* ]]; then
+    g++ -I "$JAVA_HOME/include" -I "$JAVA_HOME/include/darwin" -I "$PYTHONHOME" -shared -flat_namespace -undefined suppress -dynamiclib -o libio_siddhi_pythonapi_threadfix_pythreadfix.dylib io_siddhi_pythonapi_threadfix_PyThreadFix.c
+    cp libio_siddhi_pythonapi_threadfix_pythreadfix.so ../../../libio_siddhi_pythonapi_threadfix_pythreadfix.dylib
+elif [[ "$OSTYPE" = "linux-musl" ]] || [[ "$OSTYPE" = "linux-gnu" ]]; then
     g++ -I "$JAVA_HOME/include" -I "$JAVA_HOME/include/linux" -I "$PYTHONHOME" -shared -fPIC -o libio_siddhi_pythonapi_threadfix_pythreadfix.so io_siddhi_pythonapi_threadfix_PyThreadFix.c
+    cp libio_siddhi_pythonapi_threadfix_pythreadfix.so ../../../libio_siddhi_pythonapi_threadfix_pythreadfix.so
 fi
 
-echo "Copying output library to ../../../../SiddhiCEP4"
-cp libio_siddhi_pythonapi_threadfix_pythreadfix.so ../../../libio_siddhi_pythonapi_threadfix_pythreadfix.so
 echo "All is well!"
